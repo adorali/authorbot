@@ -1,3 +1,105 @@
-p.message-from-author {
+/* 
+Rules are written from top to bottom (i.e. header, content, footer).
+Within categories, rules are written depth first (i.e. first the rules for form,
+then the rules for all parts of the form, then back up to the next item.).
+Last come addition rules to make styling consistent for desktops.
+All rules in this last section are organized the same way.
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+/* general styling */
+
+body {
+    background: url('img/paper.jpg');
+    font-family: 'Noto Serif', serif;
+    background-size: cover;
+}
+
+/* header rules */
+
+header {
+    text-align: center;
+}
+
+h1 {
+    padding: 20px 5px;
+    font-family: 'Crimson Text', serif;
+    letter-spacing: -2px;
+}
+
+/* form rules */
+
+#name {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 2px;
+    width: 70%;
+    margin: 0px;
+    border: 7px solid transparent;
+    padding: 2px;
+    -webkit-border-image: url(img/border.png) 30 round; /* Safari 3.1-5 */
+    -o-border-image: url(img/border.png) 30 round; /* Opera 11-12.1 */
+    border-image: url(img/border.png) 40 round;
+}
+
+#name:focus, 
+#name:hover,
+#name:active,
+#name:-webkit-autofill {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+#button {
+    margin: 0px;
+    width: 25%;
+    background-color: rgba(0, 0, 0, 0);
+    border: 7px solid transparent;
+    padding: 2px;
+    -webkit-border-image: url(img/border.png) 30 round; /* Safari 3.1-5 */
+    -o-border-image: url(img/border.png) 30 round; /* Opera 11-12.1 */
+    border-image: url(img/border.png) 40 round;
+}
+
+#button:hover, #button:focus {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.line {
+    width: 100%;
+    height: 5px;
+    margin: 5px 0px;
+    background-image: url("img/line.png");
+    background-size: 100% 5px;
+}
+
+/* generated text rules */
+
+.message-from-author {
     font-family: 'Special Elite', cursive;
+    text-align: justify;
+    text-justify: newspaper;
+}
+
+/* footer rules */
+
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    font-size: 75%;
+}
+
+
+/* desktop */
+@media only screen and (min-width: 768px) {
+
+    
+
 }

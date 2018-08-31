@@ -5,7 +5,7 @@
     <title>{% block name %}{% endblock %}-Bot</title>
 
     <!-- Bootstrap for styling -->
-    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:600|Noto+Serif|Special+Elite" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -15,18 +15,27 @@
         {% block header %}{% endblock %}
     </header>
 
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
+    <div class="content">
 
-    <!-- author submission form -->
-    <form method="POST">
-    <label for="author">Author</label>
-    <input name="name" id="name" required>
-    <input type="submit" value="speak">
-    </form>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
 
-    <!-- resulting text -->
-    {% block content %}{% endblock %}
+        <!-- author submission form -->
+        <form method="POST">
+            <input name="name" id="name" required>
+            <input id="button" type="submit" value="speak">
+        </form>
+
+        <div class="line"></div>
+
+        <!-- resulting text -->
+        {% block content %}{% endblock %}
+
+    </div>
+
+    <footer>
+        <small>Created using Flask, Project Gutenberg, and Gutendex</small>
+    </footer>
 </body>
 </html>

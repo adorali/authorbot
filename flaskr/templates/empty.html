@@ -2,11 +2,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <h1>{% block name %}{{sample["author_name"]}}{% endblock %} is talking right now.</h1>
-    <p>Enter someone whose work is on Project Gutenberg. Exact spelling, if you would be so kind.</p>
+    <h1>The {% block name %}{{sample["author_name"]}}{% endblock %}-Bot.</h1>
+    <p class="instruc">Enter an author whose work is on Project Gutenberg. Exact spelling, if you would be so kind.</p>
 {% endblock %}
 
 
 {% block content %}
-    <p class="message-from-author">"{{sample["speech"]}}"</p>
+    <p class="message-from-author">{{sample["speech"]}}</p>
 {% endblock %}

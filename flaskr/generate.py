@@ -144,8 +144,9 @@ def find_text(books, query_name):
             elif 'text/plain; charset=utf-8' in book['formats']:
                 url = book['formats']['text/plain; charset=utf-8']
 
-            response = requests.get(url).content.decode("utf-8", "ignore")
-            return response
+            if url.endswith('.txt'):
+                response = requests.get(url).content.decode("utf-8", "ignore")
+                return response
 
 
 @bp.route('/', methods=('GET', 'POST'))
@@ -153,19 +154,19 @@ def empty():
     # if they submitted their author:
     if request.method == 'POST':
         # replace spaces with url encoded version
-        author_name = request.form['name'].lower()
-        query = author_name.replace(' ', '%20')
+        author_name = request.form['name']
+        query = author_name.lower().replace(' ', '%20')
         # fetch book list
         response = requests.get(GUT_URL_TEMPLATE + query).content
 
         # return first valid book
-        raw_text = find_text(json.loads(response.decode("utf-8"))["results"], author_name)
+        raw_text = find_text(json.loads(response.decode("utf-8"))["results"], author_name.lower())
 
         # make model from text
         model = make_higher_order_markov_model(1, raw_text.split())
         speech = generate_random_paragraph(model)
     else:
-        author_name = "No one"
+        author_name = "Author"
         speech = "..."
 
     return render_template('empty.html', sample={"author_name": author_name, "speech": speech})
