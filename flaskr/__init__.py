@@ -25,7 +25,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    import generate
+    from . import generate
     app.register_blueprint(generate.bp)
     app.add_url_rule('/', endpoint='empty')
 
