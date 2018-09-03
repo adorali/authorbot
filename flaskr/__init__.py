@@ -3,6 +3,8 @@ import os
 from flask import Flask
 
 
+
+
 def create_app(test_config=None):
     # create and configure the app
     # creates Flask instance
@@ -25,8 +27,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import generate
+    import generate
     app.register_blueprint(generate.bp)
     app.add_url_rule('/', endpoint='empty')
 
     return app
+
+
+app = create_app()
