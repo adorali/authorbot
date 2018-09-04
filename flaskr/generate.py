@@ -10,7 +10,7 @@ from flask import (
 
 bp = Blueprint('generate', __name__, url_prefix='/')
 
-GUT_URL_TEMPLATE = "http://gutendex.com/books?search=";
+GUT_URL_TEMPLATE = "http://gutendex.com/books?search="
 
 END_TOKEN = "***END***"
 
@@ -59,8 +59,7 @@ class Dictogram(dict):
             # print index
             if index > random_int:
                 # print list_of_keys[i]
-                return (list_of_keys[i],)
-
+                return list_of_keys[i],
 
 
 # FILE 2
@@ -151,22 +150,25 @@ def find_text(books, query_name):
 
 @bp.route('/', methods=('GET', 'POST'))
 def empty():
+    author_name = "Author"
+    speech = "..."
+    
     # if they submitted their author:
     if request.method == 'POST':
         # replace spaces with url encoded version
         author_name = request.form['name']
         query = author_name.lower().replace(' ', '%20')
         # fetch book list
-        response = requests.get(GUT_URL_TEMPLATE + query).content
+        try:
+            response = requests.get(GUT_URL_TEMPLATE + query).content
 
-        # return first valid book
-        raw_text = find_text(json.loads(response.decode("utf-8"))["results"], author_name.lower())
+            # return first valid book
+            raw_text = find_text(json.loads(response.decode("utf-8"))["results"], author_name.lower())
 
-        # make model from text
-        model = make_higher_order_markov_model(1, raw_text.split())
-        speech = generate_random_paragraph(model)
-    else:
-        author_name = "Author"
-        speech = "..."
+            # make model from text
+            model = make_higher_order_markov_model(1, raw_text.split())
+            speech = generate_random_paragraph(model)
+        except:
+            flash("I can't read anything from this author. Try someone else, or perhaps check your spelling. We all make mistakes.")
 
     return render_template('empty.html', sample={"author_name": author_name, "speech": speech})
