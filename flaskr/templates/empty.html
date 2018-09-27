@@ -1,0 +1,12 @@
+<!-- takes sample with author_name (author chosen) and speech (ml generated text) -->
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>The {% block name %}{{sample["author_name"]}}{% endblock %}-Bot.</h1>
+    <p class="instruc">Enter an author whose work is on Project Gutenberg. Exact spelling, if you would be so kind.</p>
+{% endblock %}
+
+
+{% block content %}
+    <p class="message-from-author">{{sample["speech"]}}</p>
+{% endblock %}
